@@ -7,6 +7,16 @@ document
       currentWindow: true
     });
 
-    document.getElementById("output")
-      .innerText = tab.title;
+    chrome.tabs.sendMessage(
+      tab.id,
+      { action: "getText" },
+
+      (response) => {
+
+        const text = response.data;
+
+        document.getElementById("output")
+          .innerText = text.slice(0, 1000);
+      }
+    );
 });
