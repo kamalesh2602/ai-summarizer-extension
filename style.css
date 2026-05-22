@@ -1,0 +1,15 @@
+body {
+  width: 300px;
+  padding: 15px;
+  font-family: Arial;
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#output {
+  margin-top: 15px;
+  font-weight: bold;
+}
