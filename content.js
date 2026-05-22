@@ -1,5 +1,9 @@
+console.log("CONTENT SCRIPT LOADED");
+
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  (request, sender, sendResponse) => {
+
+    console.log("MESSAGE RECEIVED");
 
     if (request.action === "getText") {
 
@@ -9,4 +13,6 @@ chrome.runtime.onMessage.addListener(
         data: text
       });
     }
+
+    return true;
 });
