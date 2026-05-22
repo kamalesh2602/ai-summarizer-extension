@@ -1,7 +1,10 @@
 {
   "manifest_version": 3,
+
   "name": "AI Summarizer",
+
   "version": "1.0",
+
   "description": "Summarize webpages using AI",
 
   "permissions": [

@@ -1,5 +1,8 @@
-const API_KEY = "api key";
+const API_KEY = "YOUR_OPENROUTER_API_KEY";
 
+const loader = document.getElementById("loader");
+
+const copyBtn = document.getElementById("copyBtn");
 
 document
   .getElementById("summarizeBtn")
@@ -23,13 +26,17 @@ document
           console.log("RESPONSE:", response);
 
           if (!response || !response.data) {
+
             output.value = "No webpage text found.";
+
             return;
           }
 
           const pageText = response.data.slice(0, 3000);
 
-          output.value = "Generating summary...";
+          output.value = "";
+
+          loader.classList.remove("hidden");
 
           try {
 
@@ -52,8 +59,21 @@ document
                   messages: [
                     {
                       role: "user",
-                      content:
-                        `Summarize this webpage in simple bullet points:\n\n${pageText}`
+
+                      content: `
+You are an expert webpage summarizer.
+
+Analyze the following webpage content and provide:
+
+1. A short overall summary
+2. 5 important bullet points
+3. Key names, dates, or events if present
+4. Use beginner-friendly language
+5. Keep response concise and clean
+
+Webpage Content:
+${pageText}
+`
                     }
                   ]
 
@@ -66,18 +86,26 @@ document
             console.log("OPENROUTER RESPONSE:", data);
 
             if (data.error) {
+
+              loader.classList.add("hidden");
+
               output.value = data.error.message;
+
               return;
             }
 
             const summary =
               data.choices[0].message.content;
 
+            loader.classList.add("hidden");
+
             output.value = summary;
 
           } catch (err) {
 
             console.error("AI ERROR:", err);
+
+            loader.classList.add("hidden");
 
             output.value = err.message;
           }
@@ -88,6 +116,25 @@ document
 
       console.error("OUTER ERROR:", err);
 
+      loader.classList.add("hidden");
+
       output.value = err.message;
     }
+});
+
+copyBtn.addEventListener("click", async () => {
+
+  const text = document.getElementById("output").value;
+
+  if (!text) return;
+
+  await navigator.clipboard.writeText(text);
+
+  copyBtn.innerText = "Copied!";
+
+  setTimeout(() => {
+
+    copyBtn.innerText = "Copy Summary";
+
+  }, 2000);
 });

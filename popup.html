@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>AI Summarizer</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <h2>AI Summarizer</h2>
@@ -12,9 +14,19 @@
     Summarize Page
   </button>
 
-  <textarea id="output"></textarea>
+  <div id="loader" class="hidden"></div>
+
+  <textarea
+    id="output"
+    placeholder="Your AI summary will appear here..."
+  ></textarea>
+
+  <button id="copyBtn">
+    Copy Summary
+  </button>
 
   <script src="popup.js"></script>
 
 </body>
+
 </html>
